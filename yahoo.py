@@ -1,5 +1,22 @@
 from bs4 import BeautifulSoup
 import pip._vendor.requests as requests
+from decimal import Decimal
+
+#defining a constant map so that we can map how many 0's to add for a M or B
+d = {
+    'M': 6,
+    'B': 9,
+    'k': 3,
+}
+
+#making a function that will convert numbers like "53.2M" to 53,200,000 and "4.2B" to 4,200,000,000
+def text_to_num(text):
+        if text[-1] in d:
+            num, magnitude = text[:-1], text[-1]
+            return Decimal(num) * 10 ** d[magnitude]
+        else:
+            return Decimal(text)
+
 
 def scrape(ticker):
     #defining the stats we want to scrpe
@@ -20,7 +37,7 @@ def scrape(ticker):
 
     #iterating through all wanted stats and looking at that row, finding the parent tags and finding the value then it gets appended to the list
     for stat in key_stats_on_main:
-        scraped_data.append(soup.find(text=stat).find_parent('tr').find_all('td')[1].contents[0].contents[0])
+        scraped_data.append(text_to_num(soup.find(text=stat).find_parent('tr').find_all('td')[1].contents[0].contents[0]))
 
     #parsing the statistics page of the ticker
     soup = BeautifulSoup(requests.get(statistics_page_url).text, 'html.parser')
@@ -32,9 +49,7 @@ def scrape(ticker):
         try:
             scraped_data.append(value.contents[0])
         except:
-            scraped_data.append(value)
+            scraped_data.append(text_to_num(value))
 
     #returns the data that we have scraped from yahoo finance
     return scraped_data
-
-scrape("SNY")
