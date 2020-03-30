@@ -35,4 +35,6 @@ with open(filename, 'w+') as csvfile:
 print("\nopening file now")
 platform_name = platform.system()
 if platform_name == "Windows" : os.startfile(filename)
-if platform_name == "Darwin": os.system("open {}".format(filename))
+elif platform_name == "Darwin": os.system("open {}".format(filename))
+elif platform_name == "Linux" : os.system("xdg-open {}".format(filename))
+else print ("Your OS is not supported for automatic opening of the CSV file. Please check the current directory for a csv file.")
