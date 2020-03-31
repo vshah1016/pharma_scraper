@@ -40,7 +40,8 @@ for entry in progressbar(entries, "Fetching: "):
         rows.append([ticker, entry['date'], round(entry['companies'][i]["price"], 2), entry['class'], entry['name'], entry['note'], yahoo_data[0], yahoo_data[2], yahoo_data[3], yahoo_data[1], yahoo_data[4], yahoo_data[5], yahoo_data[6], yahoo_data[7], "Yes"  if ticker in baker_holdings else "No"])
 
 #write to csv file
-filename = "curated_list_" + datetime.today().strftime('%Y-%m-%d') + ".csv"
+os.makedirs("spreadsheets", exist_ok=True)
+filename = "spreadsheets/curated_list_" + datetime.today().strftime('%Y-%m-%d') + ".csv"
 
 print("\nWriting to csv file.")
 with open(filename, 'w+') as csvfile: 
