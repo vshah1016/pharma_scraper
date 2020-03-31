@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import pip._vendor.requests as requests
+import requests
 from decimal import Decimal
 
 #defining a constant map so that we can map how many 0's to add for a M or B

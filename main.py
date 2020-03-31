@@ -1,5 +1,5 @@
-import bio
-import yahoo
+import bio, yahoo
+from baker_bros import get_baker_holdings
 #libraries needed to make and open csv files
 import csv, platform, os, sys
 from datetime import datetime
@@ -19,8 +19,9 @@ def progressbar(it, prefix="", size=60, file=sys.stdout):
     file.flush()
 
 #establishing the fields in my spreadsheet
-fields = ["Ticker", "Date", "Price", "Type", "Drug Name", "Note", "Market Cap",	"Yearly High", "Yearly Low"	,"Target", "Revenue", "Cash", "Debt", "Net Income Avai.",]
+fields = ["Ticker", "Date", "Price", "Type", "Drug Name", "Note", "Market Cap",	"Yearly High", "Yearly Low"	,"Target", "Revenue", "Cash", "Debt", "Net Income Avai.", "Baker Bros Own?"]
 
+#gets all entries within 90 days
 entries = bio.getEntries(90)
 
 #makes a new line so everything looks cleaner
@@ -28,13 +29,15 @@ print("\n")
 
 #rows will eventually hold all data necessary
 rows = []
+#gets the baker bros info
+baker_holdings = get_baker_holdings()
 #this iterates through every entry and maps it to the information for that line on the csv
 #the first for loop goes through all of the entries but also makes a progeress bar for us
 for entry in progressbar(entries, "Fetching: "):
     for i in range(len(entry['companies'])):
         ticker = entry['companies'][i]['ticker']
         yahoo_data = yahoo.scrape(ticker)
-        rows.append([ticker, entry['date'], round(entry['companies'][i]["price"], 2), entry['class'], entry['name'], entry['note'], yahoo_data[0], yahoo_data[2], yahoo_data[3], yahoo_data[1], yahoo_data[4], yahoo_data[5], yahoo_data[6], yahoo_data[7], ])
+        rows.append([ticker, entry['date'], round(entry['companies'][i]["price"], 2), entry['class'], entry['name'], entry['note'], yahoo_data[0], yahoo_data[2], yahoo_data[3], yahoo_data[1], yahoo_data[4], yahoo_data[5], yahoo_data[6], yahoo_data[7], "Yes"  if ticker in baker_holdings else "No"])
 
 #write to csv file
 filename = "curated_list_" + datetime.today().strftime('%Y-%m-%d') + ".csv"
