@@ -1,6 +1,9 @@
+altgraph==0.17
 beautifulsoup4==4.8.2
 certifi==2019.11.28
 chardet==3.0.4
 idna==2.9
+macholib==1.14
+PyInstaller==3.6
 requests==2.23.0
 soupsieve==2.0
