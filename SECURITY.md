@@ -12,4 +12,4 @@ These are the currently supported versions.
 
 ## Reporting a Vulnerability
 
-Send me an email at (veer.shah1016@gmail.com)[mailto:veer.shah1016@gmail.com] with any vulnerabilities or questions.
+Send me an email at veer.shah1016@gmail.com with any vulnerabilities or questions.
