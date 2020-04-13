@@ -15,7 +15,7 @@ def text_to_num(text):
             num, magnitude = text[:-1], text[-1]
             return Decimal(num) * 10 ** d[magnitude]
         else:
-            return Decimal(text)
+            return text
 
 
 def scrape(ticker):
