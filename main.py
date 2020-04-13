@@ -22,8 +22,14 @@ def progressbar(it, prefix="", size=60, file=sys.stdout):
 #establishing the fields in my spreadsheet
 fields = ["Ticker", "Date", "Price", "Type", "Drug Name", "Note", "Market Cap",	"Yearly High", "Yearly Low"	,"Target", "Revenue", "Cash", "Debt", "Net Income Avai.", "Baker Bros Own?"]
 
+#get input for how many days you want to seach for
+try:
+    days_to_search = int(input("How many days do you want to search for? "))
+except:
+    print("There was an error with your input, defaulting to 90 days. \n")
+    days_to_search = 90
 #gets all entries within 90 days
-entries = bio.getEntries(90)
+entries = bio.getEntries(days_to_search)
 
 #makes a new line so everything looks cleaner
 print("\n")
