@@ -23,8 +23,8 @@ def getEntries(days):
     source_code = requests.get(site_url, headers=headers).text.split("\n")
 
     #get all pdufa events from the source code
-    pdufaEvents = source_code[1856].split('= ')[1]
-    pdufaReviewEvents = source_code[1857].split('= ')[1]
+    pdufaEvents = source_code[1858].split('= ')[1]
+    pdufaReviewEvents = source_code[1859].split('= ')[1]
         #advisoryCommitteeDates = source_code[1858].split('= ')[1]
 
     #parse to json
