@@ -20,11 +20,11 @@ def getEntries(days):
     headers['Cookie'] = str({**session.cookies.get_dict('www.biopharmcatalyst.com'), **session.cookies.get_dict('.biopharmcatalyst.com')})
 
     #get site source code
-    source_code = requests.get(site_url, headers=headers).text.split("\n")
+    source_code = requests.get(site_url, headers=headers).text
 
     #get all pdufa events from the source code
-    pdufaEvents = source_code[1858].split('= ')[1]
-    pdufaReviewEvents = source_code[1859].split('= ')[1]
+    pdufaEvents = source_code.split('var pdufaEvents = ')[1].split('var pdufaReviewEvents = ')[0]
+    pdufaReviewEvents = source_code.split('var pdufaReviewEvents = ')[1].split('var advisoryCommitteeDates = ')[0]
         #advisoryCommitteeDates = source_code[1858].split('= ')[1]
 
     #parse to json
