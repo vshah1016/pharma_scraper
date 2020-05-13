@@ -25,6 +25,8 @@ fields = ["Ticker", "Date", "Price", "Type", "Drug Name", "Note", "Market Cap",	
 #get input for how many days you want to seach for
 try:
     days_to_search = int(input("How many days do you want to search for? "))
+    if days_to_search = 0:
+        raise Exception('Zero days entered')
 except:
     print("There was an error with your input, defaulting to 90 days. \n")
     days_to_search = 90
